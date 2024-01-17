@@ -16,7 +16,7 @@ public class Sd_konser {
     /**
      * @param args the command line arguments
      */
-     public record peserta(String id_peserta, String nama,  int no_hp){};
+     public record peserta(String id_peserta, String nama,  String no_hp){};
      public record konser( String id_konserc, String namaBand, String genre, String tempat_konser,String kategori ,int harga , String[] jumlah_kursi ){};
      public record transaksi(String id_transaksi, String id_peserta, String id_konser, String genre){};
      
@@ -31,31 +31,12 @@ public class Sd_konser {
           
      }
      
-     public static void removeValueFromStack(Stack<String> stack, String valueToRemove) {
-        Stack<String> tempStack = new Stack<>();
-
-        // Pop elements from the original stack until finding the value to remove
-        while (!stack.isEmpty() && !stack.peek().equals(valueToRemove)) {
-            tempStack.push(stack.pop());
-        }
-
-        // Pop the value to remove (if found)
-        if (!stack.isEmpty()) {
-            stack.pop();
-        }
-
-        // Restore the remaining elements to the original stack
-        while (!tempStack.isEmpty()) {
-            stack.push(tempStack.pop());
-        }
-    }
-     
     public static void main(String[] args) {
         // TODO code application logic here
         
         peserta[] listPeserta = new peserta[2];
-        listPeserta[0] = new peserta("PS01" , "Jeje" , 0766);
-        listPeserta[1] = new peserta("PS02" , "Bebe" , 0226);
+        listPeserta[0] = new peserta("PS01" , "Jeje" , "085643451123");
+        listPeserta[1] = new peserta("PS02" , "Bebe" , "087865453315");
         
         konser[] listKonser = new konser [5];
         listKonser[0] = new konser ("C01","Coldplay", "Pop" ,"Jakarta", "Gold", 3000 ,new String []{"1A" , "2A" ,"3A"} );
@@ -68,30 +49,31 @@ public class Sd_konser {
                        
                     LinkedList<String> riwayatTrans = new LinkedList<>();
                     LinkedList<transaksi> listTransaksi = new LinkedList<>();
+                    LinkedList<String> transaksiL = new LinkedList<>();
                     
-            Stack<konser> sKonser = new Stack<>();
-                for(int L =0; L<listKonser.length; L++) {
-                    sKonser.push(listKonser[L]);
+                    Stack<konser> sKonser = new Stack<>();
+                for(int i = 0; i< listKonser.length; i++) {
+                    sKonser.push(listKonser[i]);
                 }
+                
+                
               Queue<peserta> pesertaQueue = new LinkedList<peserta>();
               for(int i=0; i<listPeserta.length; i++){
               pesertaQueue.add(listPeserta[i]);
               }
-             
-            
               while(!pesertaQueue.isEmpty()){ 
-                   peserta p = pesertaQueue.poll();
                        menu();
-                          String  pilih_genre;
+                  String  pilih_genre;
                   pilih_genre = input.nextLine();
                   System.out.println("");
+                  peserta p = pesertaQueue.poll();
                   System.out.println("Nama Kamu " + p.nama());
                   System.out.println("");
 
                     boolean cari_genre = false;
                     konser firstPopConcert = null;
 
-            for (konser concert : listKonser) {
+            for (konser concert : sKonser) {
             if (concert.genre().equalsIgnoreCase(pilih_genre)) {
                 cari_genre = true;
                 firstPopConcert = concert;
@@ -113,7 +95,11 @@ public class Sd_konser {
           System.out.print("Kamu Pilih Konser Apa ? :");
           String pilih_konser = input.nextLine();
            
-            for (konser konsers : listKonser){
+                       
+                    List<konser> konserList = new ArrayList<>(sKonser);
+        konserList.sort(Comparator.comparing(konser::id_konserc));
+            for (konser konsers : konserList){
+             
                      if(konsers.namaBand().equalsIgnoreCase(pilih_konser) ){
                          
                           System.out.println("==========================");
@@ -129,57 +115,78 @@ public class Sd_konser {
                      }
             }
                      
-             System.out.println("Pilih Kategori Konser : ");
-            String kategoriR = input.nextLine();
+             System.out.print("Pilih Kategori Konser : ");
+             String kategoriR = input.nextLine();
             
+             int harga = 0;
+             konser selectedKonser = null;
+
             for (konser c: sKonser) {
-            if (c.id_konserc.equals(kategoriR)) {
+            if (c.id_konserc.equalsIgnoreCase(kategoriR)) {
                         System.out.println("==========================");
                           System.out.println(" List Konser Yang Tersedia ");
                           System.out.println("===========================");
                           System.out.println("No. " + c.id_konserc);
                           System.out.println("Band: " + c.namaBand());
+                          harga = c.harga;
                           System.out.println("Kategori " + c.kategori);
                           System.out.println("Harga Rp." + c.harga);
                           System.out.println("Kursi Yang Tersedia : " + Arrays.toString(c.jumlah_kursi()));
+                           selectedKonser = c;
                           System.out.println("------------------------------");
 
             System.out.println("Harga Tiket yang Harus Anda Bayar : " + c.harga() + "" );
               break;  // Exit the loop once the correct konserc is found
+            }                       
             }
             
-                System.out.print("Pilih Tempat Duduk Yang Aka Dipilih : ");
-                 String tp = input.nextLine();
-                 Stack<konser> tempStack = new Stack<>();
-                 
-                  int countToRemove = 0;
-        for (String element : c.jumlah_kursi()) {
-            if (element.equals(tp)) {
-                countToRemove++;
-            }
-        }
-
-        String[] newArray = new String[c.jumlah_kursi().length - countToRemove];
-        int newIndex = 0;
-
-        for (String element : c.jumlah_kursi()) {
-            if (!element.equals(tp)) {
-                newArray[newIndex++] = element;
-            }
-        }
-
-            while (!sKonser.isEmpty()) {
+              System.out.println("Pilih Kursi Kamu !");
+              String tp = input.nextLine();
+            
+                 Stack<konser> temporaryStack = new Stack<>();
+        konser removedKonser = null;
+        while (!sKonser.isEmpty()) {
             konser currentKonser = sKonser.pop();
-            if (currentKonser.namaBand().equalsIgnoreCase(kategoriR)) {
-                // Menghapus nilai dari array jika ditemukan
-                currentKonser = currentKonser.jumlah_kursi(newArray);
+            if (!currentKonser.id_konserc().equals(kategoriR)) {
+                temporaryStack.push(currentKonser);
+            } else {
+                removedKonser = currentKonser;
             }
-            tempStack.push(currentKonser);
         }
-                   
-            while (!tempStack.isEmpty()) {
-    sKonser.push(tempStack.pop());
-}
+        
+         if(removedKonser != null) {
+             for (konser kons : listKonser) {
+            boolean kursiDitemukan = false;                 
+               for (String kursiValue : kons.jumlah_kursi()) {
+                if (kursiValue.equals(tp) ) {
+                    if(kons.id_konserc().equals(kategoriR)){
+
+                    ArrayList<String> kursiList = new ArrayList<>(List.of(kons.jumlah_kursi()));
+                    kursiList.remove(tp);
+
+                    // Update the konser object with the modified array
+                   konser k = new konser(kons.id_konserc(), kons.namaBand(), kons.genre(), kons.tempat_konser(), kons.kategori(), kons.harga(), kursiList.toArray(new String[0]));
+
+                    kursiDitemukan = true;
+                    temporaryStack.push(k);
+                    break;  // Exit the loop if kursi is found
+                    }
+                }  
+             } 
+                        
+              }
+           
+          }
+
+        while (!temporaryStack.isEmpty()) {
+            sKonser.push(temporaryStack.pop());
+        }
+         
+            
+             for(konser r :sKonser){
+                 System.out.println("hm" + Arrays.toString(r.jumlah_kursi)+ " " + r.id_konserc);
+             }
+             
             LocalDate tanggal_pembuatan = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String tanggal_pemesanan = tanggal_pembuatan.format(formatter);
@@ -189,39 +196,26 @@ public class Sd_konser {
             System.out.println("============================");
             System.out.println("Riwayat Transaksi Anda Sebagai Berikut");
             System.out.println("=============================");
-            System.out.println("Total Pesanan anda " + c.harga());
+            System.out.println("Total Pesanan anda " + harga);
             System.out.println("");
             System.out.println("Tanggal Pemesanan yang Dibuat : "+ tanggal_pemesanan);
             System.out.println("Di verifikasi oleh admin : " + verAdmin);
             String id_transaksi = "T01";
             transaksi t = new transaksi(id_transaksi, p.id_peserta(), kategoriR, pilih_genre);
             listTransaksi.add(t);
-              }
-              
-             
-              
-//            for (konser k : listKonser) {
-//            if (k.namaBand().equalsIgnoreCase(pilih_konser) && k.jumlah_kursi() > 0) {
-//            System.out.println("==========================");
-//            System.out.println(" List Konser Yang Tersedia ");
-//            System.out.println("===========================");
-//              System.out.println("No. " + k.id_konserc);
-//              System.out.println("Band: " + k.namaBand());
-//              System.out.println("Kategori " + k.kategori);
-//              System.out.println("Harga Rp." + k.harga);
-//              System.out.println("------------------------------");
-//            }
-//        }
            
-         
+              
+              
+          
     }
                            
-              
+                   
              
 
    // FIX BAWAAN            
        }
               }
+    
                             
                          
     
