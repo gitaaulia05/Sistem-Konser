@@ -18,8 +18,8 @@ public class Sd_konser {
      */
      public record peserta(String id_peserta, String nama,  String no_hp){};
      public record konser( String id_konserc, String namaBand, String genre, String tempat_konser,String kategori ,int harga , String[] jumlah_kursi ){};
-     public record transaksi(String id_transaksi, String id_peserta, String id_konser, String genre){};
-     
+     public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
+     public record riwayat_transaksi ( String id_riwayat_transaksi , String id_konser,  String genre, String kursi_dipesan){};
      
      public static void menu (){
           System.out.println("===========================");
@@ -47,10 +47,9 @@ public class Sd_konser {
                 
                     Scanner input = new Scanner(System.in);
                        
-                    LinkedList<String> riwayatTrans = new LinkedList<>();
+                    LinkedList<riwayat_transaksi> riwayatTrans = new LinkedList<>();
                     LinkedList<transaksi> listTransaksi = new LinkedList<>();
-                    LinkedList<String> transaksiL = new LinkedList<>();
-                    
+                  
                     Stack<konser> sKonser = new Stack<>();
                 for(int i = 0; i< listKonser.length; i++) {
                     sKonser.push(listKonser[i]);
@@ -91,7 +90,7 @@ public class Sd_konser {
         } else {
             System.out.println("Genre Tidak Tersedia");
         }
-        
+                  System.out.println("");
           System.out.print("Kamu Pilih Konser Apa ? :");
           String pilih_konser = input.nextLine();
            
@@ -114,13 +113,12 @@ public class Sd_konser {
                           
                      }
             }
-                     
+                   System.out.println("");  
              System.out.print("Pilih Kategori Konser : ");
              String kategoriR = input.nextLine();
             
              int harga = 0;
              konser selectedKonser = null;
-
             for (konser c: sKonser) {
             if (c.id_konserc.equalsIgnoreCase(kategoriR)) {
                         System.out.println("==========================");
@@ -139,11 +137,11 @@ public class Sd_konser {
               break;  // Exit the loop once the correct konserc is found
             }                       
             }
-            
-              System.out.println("Pilih Kursi Kamu !");
+                  System.out.println("");
+              System.out.print("Pilih Kursi Kamu : ");
               String tp = input.nextLine();
             
-                 Stack<konser> temporaryStack = new Stack<>();
+            Stack<konser> temporaryStack = new Stack<>();
         konser removedKonser = null;
         while (!sKonser.isEmpty()) {
             konser currentKonser = sKonser.pop();
@@ -200,16 +198,44 @@ public class Sd_konser {
             System.out.println("");
             System.out.println("Tanggal Pemesanan yang Dibuat : "+ tanggal_pemesanan);
             System.out.println("Di verifikasi oleh admin : " + verAdmin);
-            String id_transaksi = "T01";
-            transaksi t = new transaksi(id_transaksi, p.id_peserta(), kategoriR, pilih_genre);
+            
+               String id_transaksi = null;
+            if(listTransaksi.isEmpty()){
+                id_transaksi = "TR" + 1;
+            } else {
+                int panjangList = listTransaksi.size();
+                int nextLength = panjangList + 1;
+                id_transaksi = "TR" + nextLength;
+            }
+            
+              String id_riwayat_transaksi = null;
+               if(riwayatTrans.isEmpty()){
+                id_riwayat_transaksi = "TR" + 1;
+            } else {
+                int panjangListr = riwayatTrans.size();
+                int nextLength = panjangListr + 1;
+                id_riwayat_transaksi = "TR" + nextLength;
+            }
+              
+            transaksi t = new transaksi(id_transaksi,id_riwayat_transaksi , p.id_peserta(), tanggal_pemesanan, verAdmin , selectedKonser.harga());
+            riwayat_transaksi rt = new riwayat_transaksi (id_riwayat_transaksi ,selectedKonser.id_konserc , selectedKonser.genre(), tp);
             listTransaksi.add(t);
-           
-              
-              
-          
+            riwayatTrans.add(rt);
     }
-                           
+           
+              for(transaksi t : listTransaksi){
+                  System.out.println("text id " + t.id_transaksi);
+                    System.out.println("text id " + t.id_riwayat_transaksi);
+                    System.out.println("id_peserta " + t.id_peserta);
+                    System.out.println("tangga : " + t.tanggal_pemesanan);
+              }
+                   System.out.println("");
                    
+                   for(riwayat_transaksi r : riwayatTrans) {
+                       System.out.println("konser : " + r.id_konser);
+                       System.out.println("gente : " + r.genre);
+                       System.out.println("tempat : " + r.kursi_dipesan);
+                   }
              
 
    // FIX BAWAAN            
