@@ -12,7 +12,7 @@
   <ul>
     <li>Ketua: <a href="https://github.com/gitaaulia05">Gita Aulia Hafid</a></li>
     <li>Anggota 1: <a href="https://github.com/Syihab07">Muhamad Ilham Syihabudin</a></li>
-    <li>Anggota 2: <a href="">Syamsul Hadi Permana</a></li>
+    <li>Anggota 2: <a href="https://github.com/syamsulhadipermana">Syamsul Hadi Permana</a></li>
   </ul>
 </ul>
 
