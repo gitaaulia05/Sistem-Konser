@@ -8,20 +8,19 @@ package sd_konser;
  *
  * @author ASUS
  */
- import java.util.*;
+
+import java.util.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-public class Sd_konser {
 
-    /**
-     * @param args the command line arguments
-     */
-     public record peserta(String id_peserta, String nama,  String no_hp){};
+public class gab_konser {
+
+      public record peserta(String id_peserta, String nama,  String no_hp){};
      public record konser( String id_konserc, String namaBand, String genre, String tempat_konser,String kategori ,int harga , String[] jumlah_kursi ){};
      public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
      public record riwayat_transaksi ( String id_riwayat_transaksi , String id_konser,  String genre, String kursi_dipesan){};
      
-     public static void menu (){
+          public static void menu (){
           System.out.println("===========================");
           System.out.println("  List Konser Yang Tersedia ");
           System.out.println("1. Pop");
@@ -30,13 +29,12 @@ public class Sd_konser {
           System.out.print("Kamu mau konser apa Gendre Apa :");
           
      }
-     
     public static void main(String[] args) {
-        // TODO code application logic here
         
-        peserta[] listPeserta = new peserta[2];
-        listPeserta[0] = new peserta("PS01" , "Jeje" , "085643451123");
-        listPeserta[1] = new peserta("PS02" , "Bebe" , "087865453315");
+          Scanner input = new Scanner(System.in);
+           peserta[] listPeserta = new peserta[2];
+           listPeserta[0] = new peserta("PS01" , "Jeje" , "085643451123");
+           listPeserta[1] = new peserta("PS02" , "Bebe" , "087865453315");
         
         konser[] listKonser = new konser [5];
         listKonser[0] = new konser ("C01","Coldplay", "Pop" ,"Jakarta", "Gold", 3000 ,new String []{"1A" , "2A" ,"3A"} );
@@ -45,9 +43,32 @@ public class Sd_konser {
         listKonser[3] = new konser ("T01" ,"Twice", "Kpop" ,"Jakarta", "Gold", 5000, new String []{"1A" , "2A" ,"3A"});
         listKonser[4] = new konser("T02" ,"Twice", "Kpop" ,"Jakarta", "Bronze", 9000, new String []{"1B" , "2B" ,"3B"});
                 
-                    Scanner input = new Scanner(System.in);
-                       
-                    LinkedList<riwayat_transaksi> riwayatTrans = new LinkedList<>();
+          
+       while (true) {
+        System.out.println("Menu:");
+        System.out.println("1. Lihat Konser");
+        System.out.println("2. Pesan Tiket");
+        System.out.println("3. Keluar");
+        System.out.print("Pilih menu (1/2/3): ");
+
+    int pilihan = input.nextInt();
+
+            switch (pilihan) {
+                case 1:
+                    for(konser k :listKonser){
+                          System.out.println("==========================");
+                          System.out.println(" List Konser Yang Tersedia ");
+                          System.out.println("===========================");
+                          System.out.println("No. " + k.id_konserc);
+                          System.out.println("Band: " + k.namaBand());
+                          System.out.println("Kategori " + k.kategori);
+                          System.out.println("Harga Rp." + k.harga);
+                          System.out.println("Kursi Yang Tersedia : " + Arrays.toString(k.jumlah_kursi()));
+                          System.out.println("------------------------------");
+                    }
+                    break;
+                case 2:
+                     LinkedList<riwayat_transaksi> riwayatTrans = new LinkedList<>();
                     LinkedList<transaksi> listTransaksi = new LinkedList<>();
                   
                     Stack<konser> sKonser = new Stack<>();
@@ -62,6 +83,7 @@ public class Sd_konser {
               }
               while(!pesertaQueue.isEmpty()){ 
                        menu();
+                       input.nextLine();
                   String  pilih_genre;
                   pilih_genre = input.nextLine();
                   System.out.println("");
@@ -244,14 +266,17 @@ public class Sd_konser {
                        System.out.println("genre : " + r.genre);
                        System.out.println("tempat : " + r.kursi_dipesan);
                    }
-             
-
-   // FIX BAWAAN            
-       }
-              }
+                    break;
+                case 3:
+                    System.out.println("Terima kasih telah menggunakan Aplikasi Tiket Konser. Sampai jumpa!");
+                    System.exit(0);
+                default:
+                    System.out.println("Pilihan tidak valid. Silakan pilih lagi.");
+            }
+        }
     
-                            
-                         
+    
+    }
     
     
-
+}
