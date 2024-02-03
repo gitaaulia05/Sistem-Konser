@@ -6,7 +6,7 @@
 
 ## Kelompok
 <ul>
-  <li>Kelompok: {kelompok 4}</li>
+  <li>Kelompok: Kelompok 4</li>
   <li>Proyek: Sistem Konser</li>
   <li>Anggota:</li>
   <ul>

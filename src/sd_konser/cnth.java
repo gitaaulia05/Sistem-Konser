@@ -61,6 +61,7 @@ public class cnth {
             System.out.print("Pinjam buku (Y/T): ");
             String pilih = input.nextLine();
             if ("Y".equals(pilih)) {
+                 while ( true ) {
                 System.out.print("Masukkan Kode Buku (pisahkan dengan koma jika lebih dari satu): ");
                 String kode = input.nextLine();
                 String[] listKode = kode.split(", ");
@@ -68,9 +69,9 @@ public class cnth {
                  System.out.println("Panjang nya " + getKategori);
                  
                 LinkedList<String> listKodeValid = new LinkedList<>();
-                
+                  boolean bukuDitemukan = false;
                 for (String currentKode : listKode) {
-                    boolean bukuDitemukan = false;
+                  
                     int jumlahBuku = rakBuku.size();
                     Stack<Buku> temporaryStack = new Stack<>();
 
@@ -97,10 +98,14 @@ public class cnth {
                         rakBuku.add(temporaryStack.pop());
                     }
 
-                    if (!bukuDitemukan) {
-                        System.out.println("Buku dengan kode " + currentKode + " tidak ditemukan.");
-                    }
+                  
                 }
+                  if (!bukuDitemukan) {
+                        System.out.println("Buku dengan kode " + " tidak ditemukan.");
+                    } else {
+                        break;
+                    }
+                 
                 
                 String[] listKodeDitemukan = listKodeValid.toArray(new String[0]);
                 if (listKodeDitemukan.length > 0) {
@@ -109,6 +114,7 @@ public class cnth {
                 } else {
                     System.out.println("Tidak ada buku yang ditemukan untuk dipinjam.");
                 }
+            }
             }
         }
          
