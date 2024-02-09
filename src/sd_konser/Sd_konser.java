@@ -214,40 +214,28 @@ public class Sd_konser {
                   }
                   
               System.out.println("");
-             
-              String tp = null;
-   
-        int getKategori  =0;
-      boolean isValidSelection = true;
-        
+                      String tp = null;
          boolean kursiFound = false;
-         do {
-
-              System.out.print("Pilih kursi Anda :" );
+        int getKategori =0;
+         while (true){
+             
+              System.out.print("Pilih Kursi Kamu ( pisahkan dengan koma apabila lebih dari 1 ) : ");
               tp = input.nextLine();
                String[] listKode = tp.split(", ");
-               getKategori = listKode.length;
-               System.out.println("Inputan user : ");
-               System.out.println(Arrays.toString(listKode));   
-               System.out.println("");
-              
+                 getKategori =  listKode.length;
+                 
               for (String currentKode : listKode) {
           for (int i = 0; i < listKonser.length; i++) {
-                
               konser k = listKonser[i];
                String[] seats = k.jumlah_kursi;
-              System.out.println(Arrays.toString(seats) + k.id_konserc);
-              System.out.println("PUNYA SISTEM");
+              
                 LinkedList<String> kursi = new LinkedList<>(Arrays.asList(seats));
-               System.out.println("");
-               
-               if(kursi.equals(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
+                
+             if(kursi.contains(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
                   kursiFound = true;
-               
                  kursi.remove(currentKode);
                    String[] listKodeDitemukan = kursi.toArray(new String[0]);
-                   ArrayList<String> kursiValid = new ArrayList<>();
-              
+                   
                 List<konser> removeListKonser = new LinkedList<>(Arrays.asList(listKonser));
                Iterator<konser> iterator = removeListKonser.iterator(); 
         while (iterator.hasNext()) {
@@ -259,28 +247,22 @@ public class Sd_konser {
              konser konsers = new konser(k.id_konserc, k.namaBand, k.genre, k.tempat_konser, k.kategori, k.harga, listKodeDitemukan);
 
                 // Add the updated konser object back to the listKonser
-                listKonser[i]=(konsers); 
-                break;
+                listKonser[i]=(konsers);
+               
              }
-       
-                  }
-                  
  
-         } 
-                if (!kursiFound) {
-        isValidSelection = false; // Set isValidSelection to false if at least one seat is not found
-                 System.out.println("Kursi Tidak Ditemukan ");
-      // Exit the loop if an invalid seat is found
-    } else {
-               break;
-           }
-            
-         
-    } while (!isValidSelection);
+         }
+              }
+          if(!kursiFound){
+              System.out.println("Tidak valid");
+          } else {
+              break;
+          }
+              
+         }
 
-
-
-            LocalDate tanggal_pembuatan = LocalDate.now();
+             
+                    LocalDate tanggal_pembuatan = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String tanggal_pemesanan = tanggal_pembuatan.format(formatter);
                 
