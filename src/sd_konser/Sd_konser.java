@@ -52,8 +52,7 @@ public class Sd_konser {
               
               int p_menu ;
            do {
-              
-            
+
             System.out.println("             menu     ");
              System.out.println("===============================");
               System.out.println("+---+-----------------------------+");  
@@ -305,11 +304,11 @@ public class Sd_konser {
             
               String id_riwayat_transaksi = null;
                if(riwayatTrans.isEmpty()){
-                id_riwayat_transaksi = "TR" + 1;
+                id_riwayat_transaksi = "RT" + 1;
             } else {
                 int panjangListr = riwayatTrans.size();
                 int nextLength = panjangListr + 1;
-                id_riwayat_transaksi = "TR" + nextLength;
+                id_riwayat_transaksi = "RT" + nextLength;
             }
                
            
