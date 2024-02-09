@@ -67,10 +67,10 @@
 <p>Koding : </p>
 <ul>
   <li>Record      : Gita</li>
-  <li>Array       : Gita & Syihab</li>
+  <li>Array       : Syihab</li>
   <li>Queue       : Gita</li>
   <li>Linked List : Gita</li>
-  <li>Searching   : Syihab & Syamsul</li>
+  <li>Searching   : Syamsul</li>
 </ul>
 <p></p>
 <p>Presentasi : </p>
@@ -86,5 +86,5 @@
 ## Demo Proyek
 <ul>
   <li>Github: <a href="https://github.com/gitaaulia05/Sistem-Konser">Github</a></li>
-  <li>Youtube: <a href="">Youtube</a></li>
+  <li>Youtube: <a href="https://youtu.be/y-awav2TkLM">Youtube</a></li>
 </ul>
