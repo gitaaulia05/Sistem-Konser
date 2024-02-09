@@ -56,10 +56,10 @@
 ## Komponen Proyek
 <p>Komponen komponen yang kami gunakan sebagai berikut :</p>
 <ul>
-  <li>Array      : Digunakan untuk implementasi struktur data yang dimana berfungsi untuk menyimpan dan mengelola data seperti data id peserta,Genre yang ada dan Kursi yang tersedia.</li>
-  <li>Record     : Digunakan untuk implementasi struktur data yang dimana berfungsi untuk mempresentasikan informasi yang ada,baik informasi peserta,list band,genre,lokasi konser,kategori,harga tiket dan kursi yang tersedia dan transaksi.</li>
-  <li>Queue      : Struktur data queue dalam sistem konser digunakan untuk mengantur antrian peserta yang ingin membeli tiket.</li>
-  <li>LinkedList : Linkedlist digunakan bersamaan dengan queueu,atau lebih tepatnya mengimplementasikan queue,dan digunakan juga pada transaksi dan riwayat transaksi.</li>
+  <li>Array      : Digunakan untuk implementasi struktur data yang dimana berfungsi untuk menyimpan dan mengelola data seperti data id peserta,genre yang ada dan kursi yang tersedia.</li>
+  <li>Record     : Digunakan untuk implementasi struktur data yang dimana berfungsi untuk mempresentasikan informasi yang ada,serta berfungsi untuk menyimpan berbagai jenis tipe data dan dapat digunakan untuk menggambar objek dengan berbagai atribut seperti peserta, list band, genre, lokasi konser, kategori, harga tiket dan transaksi beserta riwayat transaksi.</li>
+  <li>Queue      : Struktur data queue dalam sistem konser digunakan untuk mengatur antrian peserta yang ingin membeli tiket.</li>
+  <li>LinkedList :  Linkedlist dapat juga diartikan sebagai simpul,artinya linkedlist dalam sistem konser dapat digunakan untuk menarik simpul data dari array,record dan queue dan contoh bentuk implementasinya adalah data dari array dan record dimunculkan didalam transaksi dan riwayat transaksi.</li>
   <li>Searching  : Struktur data Searching dalam sistem konser digunakan untuk mencari genre yang akan ditonton oleh peserta.</li>
 </ul>
 
