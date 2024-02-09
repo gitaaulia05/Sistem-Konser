@@ -86,5 +86,5 @@
 ## Demo Proyek
 <ul>
   <li>Github: <a href="https://github.com/gitaaulia05/Sistem-Konser">Github</a></li>
-  <li>Youtube: <a href="">Youtube</a></li>
+  <li>Youtube: <a href="https://youtu.be/aW9H2O1w3oA?si=6c88IhL3MVRFAN8F">Youtube</a></li>
 </ul>
