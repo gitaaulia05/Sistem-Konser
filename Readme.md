@@ -48,6 +48,7 @@
     <li>Menampilkan struk pembayaran</li>
     <li>Menampilkan riwayat transaksi</li>
   </ul>
+   <p></p>
   <li>Keluar</li>
   <p>Jika memilih menu ini program akan berakhir</p>
 </ul>
@@ -86,5 +87,5 @@
 ## Demo Proyek
 <ul>
   <li>Github: <a href="https://github.com/gitaaulia05/Sistem-Konser">Github</a></li>
-  <li>Youtube: <a href="https://youtu.be/y-awav2TkLM">Youtube</a></li>
+  <li>Youtube: <a href="https://youtu.be/aW9H2O1w3oA">Youtube</a></li>
 </ul>
