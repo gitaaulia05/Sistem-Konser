@@ -18,7 +18,7 @@ public class Sd_konser {
      */
      public record peserta(String id_peserta, String nama,  String no_hp){};
      public record konser( String id_konserc, String namaBand, String genre, String tempat_konser,String kategori ,int harga , String[] jumlah_kursi ){};
-     public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
+     public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String NamaPeserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
      public record riwayat_transaksi ( String id_riwayat_transaksi , String id_konser,  String genre, String kursi_dipesan){};
 
     public static void main(String[] args) {
@@ -28,12 +28,13 @@ public class Sd_konser {
         listPeserta[0] = new peserta("PS01" , "Jeje" , "085643451123");
         listPeserta[1] = new peserta("PS02" , "Bebe" , "087865453315");
         
-        konser[] listKonser = new konser [5];
+        konser[] listKonser = new konser [6];
         listKonser[0] = new konser ("C01","Coldplay", "Pop" ,"Jakarta", "Gold", 3000 ,new String []{"1A" , "2A" ,"3A"} );
         listKonser[1] = new konser ("C02" ,"Coldplay","Pop" , "Jakarta", "Silver", 2000, new String []{"1B" , "2B" ,"3B"});
         listKonser[2] = new konser ("C03" ,"Coldplay", "Pop" ,"Jakarta", "Bronze", 3000, new String []{"1C" , "2C" ,"3C"});
-        listKonser[3] = new konser ("T01" ,"Twice", "Kpop" ,"Jakarta", "Gold", 5000, new String []{"1A" , "2A" ,"3A"});
-        listKonser[4] = new konser("T02" ,"Twice", "Kpop" ,"Jakarta", "Bronze", 9000, new String []{"1B" , "2B" ,"3B"});
+        listKonser[3] = new konser ("T01" ,"Twice", "Kpop" ,"Jakarta", "Gold", 9000, new String []{"1A" , "2A" ,"3A"});
+        listKonser[4] = new konser("T02" ,"Twice", "Kpop" ,"Jakarta", "Silver", 8000, new String []{"1B" , "2B" ,"3B"});
+        listKonser[5] = new konser("T03" ,"Twice", "Kpop" ,"Jakarta", "Bronze", 7000, new String []{"1C" , "2C" ,"3C"});
                 
                     Scanner input = new Scanner(System.in);
                        
@@ -64,7 +65,7 @@ public class Sd_konser {
               System.out.println("+---+-----------------------------+");  
         
                   System.out.println("");
-                  System.out.print("Pilih menu (1/2/3/4): ");
+                  System.out.print("Pilih menu (1/2/3): ");
                   p_menu = input.nextInt();
                   
                  switch(p_menu){
@@ -95,13 +96,15 @@ public class Sd_konser {
           System.out.println("2. Kpop ");
           System.out.println("==========================="); 
 
-                  System.out.println("");
-                  peserta p = pesertaQueue.poll();
-                  System.out.println("Nama Kamu " + p.nama());
-                  System.out.println("");
-                  input.nextLine();
+                        System.out.println("");
+                        peserta p = pesertaQueue.poll();
+                        System.out.println("Nama Kamu " + p.nama());
+                        System.out.println("");
+                        input.nextLine();
+                  
                     boolean cari_genre = false;
                      String  pilih_genre;
+                     
                     while (true) {
                         System.out.println("");
                          System.out.print("Masukkan Jenis Genre  :");
@@ -128,6 +131,7 @@ public class Sd_konser {
                   System.out.println("");
                   
                   while(true)  {
+                      
           System.out.print("Pilih Nama Band  :");
           String pilih_konser = input.nextLine();
            
@@ -222,7 +226,7 @@ public class Sd_konser {
               
                 LinkedList<String> kursi = new LinkedList<>(Arrays.asList(seats));
                 
-             if(kursi.contains(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
+             if(kursi.equals(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
                   kursiFound = true;
                  kursi.remove(currentKode);
                    String[] listKodeDitemukan = kursi.toArray(new String[0]);
@@ -238,8 +242,7 @@ public class Sd_konser {
              konser konsers = new konser(k.id_konserc, k.namaBand, k.genre, k.tempat_konser, k.kategori, k.harga, listKodeDitemukan);
 
                 // Add the updated konser object back to the listKonser
-                listKonser[i]=(konsers);
-               
+                listKonser[i]=(konsers); 
              }
  
          }
@@ -307,17 +310,16 @@ public class Sd_konser {
                 id_riwayat_transaksi = "RT" + 1;
             } else {
                 int panjangListr = riwayatTrans.size();
-                int nextLength = panjangListr + 1;
-                id_riwayat_transaksi = "RT" + nextLength;
+                int nextLengthP = panjangListr + 1;
+                id_riwayat_transaksi = "RT" + nextLengthP;
             }
                
-           
-                              
-               
-            transaksi t = new transaksi(id_transaksi,id_riwayat_transaksi , p.id_peserta, tanggal_pemesanan, verAdmin , selectedKonser.harga()*getKategori);
+            transaksi t = new transaksi(id_transaksi,id_riwayat_transaksi , p.id_peserta, p.nama, tanggal_pemesanan, verAdmin , selectedKonser.harga()*getKategori);
             riwayat_transaksi rt = new riwayat_transaksi (id_riwayat_transaksi ,selectedKonser.id_konserc , selectedKonser.genre(), tp );
             listTransaksi.add(t);
             riwayatTrans.add(rt);
+            
+                           } 
             
                // Tabel
                                System.out.println("");
@@ -325,35 +327,63 @@ public class Sd_konser {
              System.out.println("      Riwayat Transaksi Anda  ");
               System.out.println("+---+-----------------------------+");  
                                System.out.println("");
+                               
                     for(riwayat_transaksi tr : riwayatTrans){
-                        System.out.println("| Nama Anda : " + p.nama);
-                        System.out.println("+---+-----------------------------+");  
-                        System.out.println("| Id Band : " + tr.id_konser());
+
+                         
+                        System.out.println("+---+-----------------------------+"); 
+                           for(transaksi ta : listTransaksi){
+                              if(tr.id_riwayat_transaksi.equals(ta.id_riwayat_transaksi)) {
+                                  
+                              
+                         for (peserta pe : listPeserta){
+                         
+                            if(pe.id_peserta.equals(ta.id_peserta)){
+                        System.out.println("| Nama Pemesan  : " + ta.NamaPeserta);
+
+                            }
+                         }
+                              }
+                           }
                         System.out.println("+---+-----------------------------+");
+
                         for(konser ks : listKonser){
                             if(tr.id_konser.equals(ks.id_konserc)){
                                 System.out.println("| Nama Band : " + ks.namaBand);
                                 System.out.println("+---+-----------------------------+");
+                                System.out.println("| Kategori Konser : " + ks.kategori);
+                                System.out.println("+---+-----------------------------+");
                                 System.out.println("| Tempat Konser : " + ks.tempat_konser);
+                                System.out.println("+---+-----------------------------+");
+                                System.out.println("| Kursi Yang Anda Pesan : " + tr.kursi_dipesan);
                                 System.out.println("+---+-----------------------------+");
                             }
                         }
+
                         for(transaksi ts : listTransaksi){
-                            if(p.id_peserta.equals(ts.id_peserta))
+                             if(tr.id_riwayat_transaksi.equals(ts.id_riwayat_transaksi)) {
+                              for (peserta pe : listPeserta){
+                            if(pe.id_peserta.equals(ts.id_peserta)){
+                            
                         System.out.println("| Total Pesanan Anda : " + ts.Total_bayar );
-                         System.out.println("+---+-----------------------------+");  
+                            }
+                         
                         }
-                         System.out.println("| Kursi Yang Anda Pesan : " + tr.kursi_dipesan);
-                         System.out.println("+---+-----------------------------+");
-                          System.out.println("");
+                             }
+                        }
+                         System.out.println("+---+-----------------------------+"); 
+                        
+                      
+                          System.out.println("");    
                     }
-    }              
+               
+                           
             
                        break;  
                       
                      case 3 :
                        System.out.println("Terima kasih telah menggunakan Aplikasi Tiket Konser. Sampai jumpa!");
-                    System.exit(0);
+                   break;
                      default:
                          System.out.println("Pilihan Tidak Sesuai Coba Lagi !");
                  }
