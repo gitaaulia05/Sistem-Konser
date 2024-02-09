@@ -40,6 +40,10 @@ public class Sd_konser {
                        
                     LinkedList<riwayat_transaksi> riwayatTrans = new LinkedList<>();
                     LinkedList<transaksi> listTransaksi = new LinkedList<>();
+                    Stack<konser> rakBuku = new Stack<>();
+        for(int i = 0; i < listKonser.length; i++){
+            rakBuku.push(listKonser[i]);
+        }
                    
               //  INI ANTRIAN PESERTA KONSER
               Queue<peserta> pesertaQueue = new LinkedList<peserta>();
@@ -176,12 +180,13 @@ public class Sd_konser {
              kategoriR = input.nextLine().toUpperCase();            
              
              boolean kategori = false;
-               System.out.println("==========================");
+                        
+            for (konser c: listKonser) {
+            if (c.id_konserc.equals(kategoriR) && c.genre.equalsIgnoreCase(pilih_genre) ) {
+                   System.out.println("==========================");
                           System.out.println(" List Konser Yang Tersedia ");
                           System.out.println("===========================");
                           System.out.println("");
-            for (konser c: listKonser) {
-            if (c.id_konserc.equals(kategoriR) && c.genre.equalsIgnoreCase(pilih_genre) ) {
                         System.out.println("+---+-----------------------------+");  
                           System.out.println("| No. " + c.id_konserc);
                           System.out.println("+---+-----------------------------+");  
@@ -203,6 +208,7 @@ public class Sd_konser {
                 if(!kategori){
                     System.out.println("Nomor Kategori Yang Kamu Masukkan Tidak Valid !");
                 } else {
+                  
                     break;
                 }
                   }
@@ -210,27 +216,38 @@ public class Sd_konser {
               System.out.println("");
              
               String tp = null;
+   
+        int getKategori  =0;
+      boolean isValidSelection = true;
+        
          boolean kursiFound = false;
-        int getKategori =0;
-         while (true){
-             
-              System.out.print("Pilih Kursi Kamu ( pisahkan dengan koma apabila lebih dari 1 ) : ");
+         do {
+
+              System.out.print("Pilih kursi Anda :" );
               tp = input.nextLine();
                String[] listKode = tp.split(", ");
-                 getKategori =  listKode.length;
-                 
+               getKategori = listKode.length;
+               System.out.println("Inputan user : ");
+               System.out.println(Arrays.toString(listKode));   
+               System.out.println("");
+              
               for (String currentKode : listKode) {
           for (int i = 0; i < listKonser.length; i++) {
+                
               konser k = listKonser[i];
                String[] seats = k.jumlah_kursi;
-              
+              System.out.println(Arrays.toString(seats) + k.id_konserc);
+              System.out.println("PUNYA SISTEM");
                 LinkedList<String> kursi = new LinkedList<>(Arrays.asList(seats));
-                
-             if(kursi.equals(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
+               System.out.println("");
+               
+               if(kursi.equals(currentKode) && k.id_konserc.equalsIgnoreCase(kategoriR)){
                   kursiFound = true;
+               
                  kursi.remove(currentKode);
                    String[] listKodeDitemukan = kursi.toArray(new String[0]);
-                   
+                   ArrayList<String> kursiValid = new ArrayList<>();
+              
                 List<konser> removeListKonser = new LinkedList<>(Arrays.asList(listKonser));
                Iterator<konser> iterator = removeListKonser.iterator(); 
         while (iterator.hasNext()) {
@@ -243,18 +260,26 @@ public class Sd_konser {
 
                 // Add the updated konser object back to the listKonser
                 listKonser[i]=(konsers); 
+                break;
              }
+       
+                  }
+                  
  
-         }
-              }
-          if(!kursiFound){
-              System.out.println("Tidak valid");
-          } else {
-              break;
-          }
-              
-         }
+         } 
+                if (!kursiFound) {
+        isValidSelection = false; // Set isValidSelection to false if at least one seat is not found
+                 System.out.println("Kursi Tidak Ditemukan ");
+      // Exit the loop if an invalid seat is found
+    } else {
+               break;
+           }
+            
          
+    } while (!isValidSelection);
+
+
+
             LocalDate tanggal_pembuatan = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String tanggal_pemesanan = tanggal_pembuatan.format(formatter);

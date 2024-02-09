@@ -48,6 +48,7 @@
     <li>Menampilkan struk pembayaran</li>
     <li>Menampilkan riwayat transaksi</li>
   </ul>
+   <p></p>
   <li>Keluar</li>
   <p>Jika memilih menu ini program akan berakhir</p>
 </ul>
@@ -67,10 +68,10 @@
 <p>Koding : </p>
 <ul>
   <li>Record      : Gita</li>
-  <li>Array       : Gita & Syihab</li>
+  <li>Array       : Syihab</li>
   <li>Queue       : Gita</li>
   <li>Linked List : Gita</li>
-  <li>Searching   : Syihab & Syamsul</li>
+  <li>Searching   : Syamsul</li>
 </ul>
 <p></p>
 <p>Presentasi : </p>
@@ -86,5 +87,9 @@
 ## Demo Proyek
 <ul>
   <li>Github: <a href="https://github.com/gitaaulia05/Sistem-Konser">Github</a></li>
+<<<<<<< HEAD
   <li>Youtube: <a href="https://youtu.be/aW9H2O1w3oA?si=6c88IhL3MVRFAN8F">Youtube</a></li>
+=======
+  <li>Youtube: <a href="https://youtu.be/aW9H2O1w3oA">Youtube</a></li>
+>>>>>>> 90ca84a13a99dbe5e5f1893eb0db6448d0bc16d7
 </ul>
