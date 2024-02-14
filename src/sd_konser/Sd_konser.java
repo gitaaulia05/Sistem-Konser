@@ -18,7 +18,7 @@ public class Sd_konser {
      */
      public record peserta(String id_peserta, String nama,  String no_hp){};
      public record konser( String id_konserc, String namaBand, String genre, String tempat_konser,String kategori ,int harga , String[] jumlah_kursi ){};
-     public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String NamaPeserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
+     public record transaksi(String id_transaksi,String id_riwayat_transaksi , String id_peserta, String tanggal_pemesanan, String verAdmin, int Total_bayar){};
      public record riwayat_transaksi ( String id_riwayat_transaksi , String id_konser,  String genre, String kursi_dipesan){};
 
     public static void main(String[] args) {
@@ -40,14 +40,11 @@ public class Sd_konser {
                        
                     LinkedList<riwayat_transaksi> riwayatTrans = new LinkedList<>();
                     LinkedList<transaksi> listTransaksi = new LinkedList<>();
-                    Stack<konser> rakBuku = new Stack<>();
-        for(int i = 0; i < listKonser.length; i++){
-            rakBuku.push(listKonser[i]);
-        }
+                   
                    
               //  INI ANTRIAN PESERTA KONSER
               Queue<peserta> pesertaQueue = new LinkedList<peserta>();
-              for(int i=0; i<listPeserta.length; i++){
+              for(int i=0; i<listPeserta.length; i++) {
               pesertaQueue.add(listPeserta[i]);
               }
                 System.out.println("          ===============================");
@@ -59,14 +56,14 @@ public class Sd_konser {
            do {
 
             System.out.println("             menu     ");
-             System.out.println("===============================");
-              System.out.println("+---+-----------------------------+");  
+            System.out.println("===============================");
+            System.out.println("+---+-----------------------------+");  
             System.out.println("1. Lihat Konser");
-              System.out.println("+---+-----------------------------+");  
+            System.out.println("+---+-----------------------------+");  
             System.out.println("2. Pesan Tiket");
-              System.out.println("+---+-----------------------------+");  
+            System.out.println("+---+-----------------------------+");  
             System.out.println("3. Keluar");
-              System.out.println("+---+-----------------------------+");  
+            System.out.println("+---+-----------------------------+");  
         
                   System.out.println("");
                   System.out.print("Pilih menu (1/2/3): ");
@@ -77,8 +74,8 @@ public class Sd_konser {
                          System.out.println("");
                          System.out.println("+---+-----------------------------+");  
                          System.out.println(" LIST SEMUA KONSER ");
-                          System.out.println("+---+-----------------------------+");  
-                          System.out.println("");
+                         System.out.println("+---+-----------------------------+");  
+                         System.out.println("");
                          for(konser l : listKonser) {
                              System.out.println("| Id Konser : " + l.id_konserc);
                              System.out.println("+---+-----------------------------+");  
@@ -221,12 +218,13 @@ public class Sd_konser {
              
               System.out.print("Pilih Kursi Kamu ( pisahkan dengan koma apabila lebih dari 1 ) : ");
               tp = input.nextLine();
-               String[] listKode = tp.split(", ");
+                String[] listKode = tp.split(", ");
                  getKategori =  listKode.length;
                  
               for (String currentKode : listKode) {
           for (int i = 0; i < listKonser.length; i++) {
               konser k = listKonser[i];
+           
                String[] seats = k.jumlah_kursi;
               
                 LinkedList<String> kursi = new LinkedList<>(Arrays.asList(seats));
@@ -261,7 +259,6 @@ public class Sd_konser {
               
          }
 
-             
                     LocalDate tanggal_pembuatan = LocalDate.now();
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             String tanggal_pemesanan = tanggal_pembuatan.format(formatter);
@@ -321,7 +318,7 @@ public class Sd_konser {
                 id_riwayat_transaksi = "RT" + nextLengthP;
             }
                
-            transaksi t = new transaksi(id_transaksi,id_riwayat_transaksi , p.id_peserta, p.nama, tanggal_pemesanan, verAdmin , selectedKonser.harga()*getKategori);
+            transaksi t = new transaksi(id_transaksi,id_riwayat_transaksi , p.id_peserta, tanggal_pemesanan, verAdmin , selectedKonser.harga()*getKategori);
             riwayat_transaksi rt = new riwayat_transaksi (id_riwayat_transaksi ,selectedKonser.id_konserc , selectedKonser.genre(), tp );
             listTransaksi.add(t);
             riwayatTrans.add(rt);
@@ -329,7 +326,7 @@ public class Sd_konser {
                            } 
             
                // Tabel
-                               System.out.println("");
+                  System.out.println("");
              System.out.println("+---+-----------------------------+");  
              System.out.println("      Riwayat Transaksi Anda  ");
               System.out.println("+---+-----------------------------+");  
@@ -346,7 +343,7 @@ public class Sd_konser {
                          for (peserta pe : listPeserta){
                          
                             if(pe.id_peserta.equals(ta.id_peserta)){
-                        System.out.println("| Nama Pemesan  : " + ta.NamaPeserta);
+                        System.out.println("| Nama Pemesan  : " + pe.nama);
 
                             }
                          }
